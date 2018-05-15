@@ -1,0 +1,11 @@
+Package: cprad
+Title: cprad
+Version: 1.0
+Authors@R: "Evan Kransdorf <evan.kransdorf@gmail.com> [aut,cre]"
+Description: Package with functions for determining high precision calculated panel reactive antibody (CPRAd)
+Depends: R (>= 3.2.0)
+License: GPL-3
+LazyData: true
+Suggests: knitr, rmarkdown, stringr
+VignetteBuilder: stringr
+Imports: stringr, knitr

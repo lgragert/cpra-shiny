@@ -1,0 +1,10 @@
+Package: cprad2
+Title: Package for Generating Calculated Panel-Reactive Antibody Values
+Version: 1.0
+Authors@R: "Evan Kransdorf <evan.kransdorf@gmail.com> [aut,cre]"
+Description: Tools for generating CPRA values
+Depends: R (>= 3.4.0)
+License: GPL-2
+LazyData: true
+Imports: data.table
+RoxygenNote: 6.0.1

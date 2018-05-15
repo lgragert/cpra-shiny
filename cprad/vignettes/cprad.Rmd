@@ -1,0 +1,57 @@
+---
+title: "An Introduction to Package cprad"
+author: "Evan Kransdorf"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\An Introduction to cprad{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\usepackage[utf8]{inputenc}
+---
+## Purpose
+
+Sensitized transplant candiates have prolonged waiting times for compatible donor organs. The current standard method of measuring sensitization, the calculated panel reactive antibody (CPRA), is not sufficiently precise for patients with very high levels of sensitization. This package contains functions developed to calculate the CPRA with additional decimal places, a measurement we term CPRA decimal, or CPRAd.
+
+## Data and Functions Within This Package
+
+This package contains no data. This package contains 5 functions. Three functions are internal functions used in calculation of the CPRAd. The additional two functions are discussed below.
+
+## Defining Unacceptalbe HLA Antigens
+
+Before the package can be utilized, the unacceptable antigens for a hypothetical sensitized patient must be specified. Antigens are specified using 6 vectors that will be used as input to the package's functions. Each vector should specify the unacceptable HLA-A, -B, -Bw, -C, -DQ, and -DR antigens. Any locus without unacceptable antigens should be defined null (as for HLA-Bw below).
+
+```{r}
+library(histo.toolbox)
+A.unacceptable<-c(2,3,11,68,69,74)
+B.unacceptable<-c(7,13,18,27,35,37,38,78,81,2708,5102)
+Bw.unacceptable<-c()
+C.unacceptable<-c(2,4,5,6,9,10,12,15,17,18)
+Q.unacceptable<-c(5,6)
+R.unacceptable<-c(7,8,11)
+```
+
+## CPRAd
+
+The cprad function will call 3 internal functions (pak_equiv, pak_apply and pak_calc) that will calculate CPRAd. The last argumen specifies the number of decimal places for the result.
+
+```{r}
+cprad(A.unacceptable,B.unacceptable,Bw.unacceptable,C.unacceptable,Q.unacceptable,R.unacceptable,decimals)
+```
+
+If you wanted to see the equivalent antigens for your input, or inspect the haplotype frequency tables for your input, this can be accomplished by directly using the internal functions.
+
+```{r}
+Equiv<-pak_equiv(A.unacceptable,B.unacceptable,Bw.unacceptable,C.unacceptable,Q.unacceptable,R.unacceptable)
+print(Equiv[[1]])
+Freq<-pak_apply(Equiv[[1]],Equiv[[2]],Equiv[[3]],Equiv[[4]],Equiv[[5]])
+print(Freq[[1]])
+pak_calc(Freq,ethnic.weights)
+```
+
+## LCD
+
+For very highly sensitized patients (CPRA > 99%), it can be difficult to quickly assess the level of sensitization using the CPRAd. In this case, using the likelihood of a compatible donor can facilitate assessment of the level of sensitization. LCD is only useful for patients with a CPRAd >= 0.5, so the function will return null for values less than this.
+
+```{r}
+lcd(A.unacceptable,B.unacceptable,Bw.unacceptable,C.unacceptable,Q.unacceptable,R.unacceptable)
+```
