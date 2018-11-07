@@ -146,7 +146,7 @@ colnames(data$df.all)<-c("A","B","C","DQ","DR")
 # data$nmdp<-round(cpra_5locus(excludes2,table.5l.nmdp.allele,ethnic.weights),6)*100
 
 # table.haplo are UNOS antigen frequencies
-# table.5l.nmdp.org are NMDP high resolution allele and antigen frequencies
+# table.5l.nmdp.ag are NMDP antigen frequencies
 # data$nmdp<-cpra_5locus(excludes4,table.5l.nmdp.allele,ethnic.weights) # SLOW and takes too much memory
 data$nmdp<-cpra_5locus(excludes2,table.5l.nmdp.ag,ethnic.weights) # FAST
 data$unos<-cpra_std(excludes2,table.haplo,ethnic.weights)
